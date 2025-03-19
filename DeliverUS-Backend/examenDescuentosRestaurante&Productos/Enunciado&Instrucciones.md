@@ -20,8 +20,8 @@ La empresa permitirá a los propietarios establecer un porcentaje de descuento (
 ## ¿Cómo se resuelve?
 1. Añadir propiedad al modelo de restaurant y al modelo product
 2. Añadir propiedad a create Restaurant y a create Product
-3. Añadir validacion, discount entre 0 y 100
+3. Añadir validacion, discount entre 0 y 100 en Restaurant Validation
 4. Añadir checkProductCanBePromoted en el middleware de product
-5. Funcion de promote
-6. Añadir en indexRestaurant y show
-7. Hacer ruta
+5. Funcion de promote en el Product Controller
+6. Añadir en indexRestaurant y show Product Controller
+7. Hacer ruta en product
