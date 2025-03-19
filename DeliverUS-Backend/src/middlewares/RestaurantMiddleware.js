@@ -1,5 +1,6 @@
 import { Restaurant, Order } from '../models/models.js'
 
+//Verifica que el restaurante pertenezca al usuario actual.
 const checkRestaurantOwnership = async (req, res, next) => {
   try {
     const restaurant = await Restaurant.findByPk(req.params.restaurantId)
@@ -11,6 +12,8 @@ const checkRestaurantOwnership = async (req, res, next) => {
     return res.status(500).send(err)
   }
 }
+
+//Comprueba que no haya órdenes asociadas con el restaurante.
 const restaurantHasNoOrders = async (req, res, next) => {
   try {
     const numberOfRestaurantOrders = await Order.count({

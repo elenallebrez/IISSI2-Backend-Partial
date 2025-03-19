@@ -1,6 +1,6 @@
 import { Order, Restaurant } from '../models/models.js'
 
-// TODO: Implement the following function to check if the order belongs to current loggedIn customer (order.userId equals or not to req.user.id)
+//Check if the order belongs to current loggedIn customer (order.userId equals or not to req.user.id)
 const checkOrderCustomer = async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId)
@@ -14,7 +14,7 @@ const checkOrderCustomer = async (req, res, next) => {
   }
 }
 
-// TODO: Implement the following function to check if the restaurant of the order exists
+//check if the restaurant of the order exists
 const checkRestaurantExists = async (req, res, next) => {
   try {
     const restaurant = await Restaurant.findByPk(req.body.restaurantId)
@@ -28,6 +28,7 @@ const checkRestaurantExists = async (req, res, next) => {
   }
 }
 
+//Check that the order belongs to the current user
 const checkOrderOwnership = async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId, {
@@ -46,6 +47,7 @@ const checkOrderOwnership = async (req, res, next) => {
   }
 }
 
+//determina si el usuario puede ver la orden basándose en su rol.
 const checkOrderVisible = (req, res, next) => {
   if (req.user.userType === 'owner') {
     checkOrderOwnership(req, res, next)
@@ -54,6 +56,7 @@ const checkOrderVisible = (req, res, next) => {
   }
 }
 
+//Comprueba que la orden no haya comenzado-status = pending
 const checkOrderIsPending = async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId)
@@ -68,6 +71,7 @@ const checkOrderIsPending = async (req, res, next) => {
   }
 }
 
+//comprueba que el order se puede enviar (todavia no se ha enviado)
 const checkOrderCanBeSent = async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId)
@@ -81,6 +85,8 @@ const checkOrderCanBeSent = async (req, res, next) => {
     return res.status(500).send(err.message)
   }
 }
+
+//Comprueba que el order se puede entregar (todavia no se ha entregado)
 const checkOrderCanBeDelivered = async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId)
